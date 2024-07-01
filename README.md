@@ -51,6 +51,62 @@ $ curl -g 'http://www.target.com/page?name={{7*7}}'
 Hello 49!
 ```
 
+Installation
+------------
+Tplmap has been updated to support installation via the included Dockerfile with the following:
+
+Building the container:
+```
+docker build -t tplmap .
+```
+
+Running the container:
+```
+docker run -it --rm tplmap
+```
+
+An alias can also be created in the ~/.zshrc or ~/.bashrc to call the command for you with the following:
+```
+alias tplmap="docker run -it --rm tplmap"
+```
+
+Example usage with alias:
+```
+$ tplmap -u 'http://<TARGET>:<PORT>' -d name=<PARAM>
+
+[+] Tplmap 0.5
+    Automatic Server-Side Template Injection Detection and Exploitation Tool
+
+[+] Testing if POST parameter 'name' is injectable
+[+] Smarty plugin is testing rendering with tag '*'
+[+] Smarty plugin is testing blind injection
+[+] Mako plugin is testing rendering with tag '${*}'
+[+] Mako plugin is testing blind injection
+[+] Python plugin is testing rendering with tag 'str(*)'
+[+] Python plugin is testing blind injection
+[+] Tornado plugin is testing rendering with tag '{{*}}'
+[+] Tornado plugin is testing blind injection
+[+] Jinja2 plugin is testing rendering with tag '{{*}}'
+[+] Jinja2 plugin is testing blind injection
+[+] Twig plugin is testing rendering with tag '{{*}}'
+[+] Twig plugin has confirmed injection with tag '{{*}}'
+[+] Tplmap identified the following injection point:
+
+  POST parameter: name
+  Engine: Twig
+  Injection: {{*}}
+  Context: text
+  OS: Linux
+  Technique: render
+  Capabilities:
+
+   Shell command execution: ok
+   Bind and reverse shell: ok
+   File write: ok
+   File read: ok
+   Code evaluation: ok, php code
+```
+
 Exploitation
 ------------
 
